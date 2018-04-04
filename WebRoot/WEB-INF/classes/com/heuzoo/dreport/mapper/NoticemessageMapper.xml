@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heuzoo.dreport.mapper.NoticemessageMapper">
+	<resultMap type="com.heuzoo.dreport.pojo.NoticemessageInfo" id="NoticemessageInfo">
+		<result column="nm_id" property="nmId"/>
+		<result column="nm_from_user_id" property="nmFromUserId"/>
+		<result column="nm_to_user_id" property="nmToUserId"/>
+		<result column="nm_state" property="nmState"/>
+		<result column="nm_message_content" property="nmMessageContent"/>
+		<result column="nm_time" property="nmTime" />
+		<result column="nm_rank" property="nmRank"/>
+		<result column="nm_enable" property="nmEnable"/>
+	</resultMap>
+	<select id="queryNoticemessageByUser" resultMap="NoticemessageInfo" parameterType="int">
+		select noticemessage.* from noticemessage where nm_enable='1' and nm_to_user_id=#{value}
+	</select>
+	<select id="queryAllNoticemessage" resultMap="NoticemessageInfo">
+		select noticemessage.* from noticemessage where nm_enable='1'
+	</select>
+	<select id="getNoticemessageById" parameterType="int" resultMap="NoticemessageInfo">
+		select noticemessage.* from noticemessage where nm_id=#{nmId} and nm_enable='1'
+	</select>
+	
+	<insert id="insertNoticemessage" parameterType="com.heuzoo.dreport.pojo.NoticemessageInfo" >
+    insert into noticemessage (nm_id, nm_from_user_id, nm_to_user_id, 
+      nm_state, nm_message_content , nm_rank , nm_enable ,nm_time)
+    values (seq_noticemessage.nextval, #{nmFromUserId,jdbcType=INTEGER},#{nmToUserId,jdbcType=INTEGER},
+    #{nmState,jdbcType=INTEGER}, #{nmMessageContent,jdbcType=VARCHAR}, #{nmRank,jdbcType=INTEGER},
+      '1',#{nmTime,jdbcType=INTEGER})
+      <selectKey keyProperty="nmId" order="AFTER" resultType="int">
+      	select seq_noticemessage.currval from dual
+      </selectKey>
+  </insert>
+  
+  <!-- 新加的更新表，根据nm_id来确定是哪个对象，然后更新他的其他字段 ，叶金幸2017年2月23日17:05:58-->
+  <update id="updateNoticemessageInfo" parameterType="com.heuzoo.dreport.pojo.NoticemessageInfo">
+  	update noticemessage set nm_from_user_id=#{nmFromUserId,jdbcType=INTEGER} 
+  					, nm_to_user_id=#{nmToUserId,jdbcType=INTEGER}
+  					, nm_state=#{nmState,jdbcType=INTEGER}
+  					, nm_message_content=#{nmMessageContent,jdbcType=VARCHAR}
+  					, nm_rank=#{nmRank,jdbcType=INTEGER}
+  	where nm_id=#{nmId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

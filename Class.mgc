@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagram>
+    <Class name="com.heuzoo.dreport.controller.AuthorityController"
+        x="258" y="77">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.heuzoo.dreport.service.JournalService" x="494" y="240">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.heuzoo.dreport.mapper.EmployeeMapper" x="1802" y="792">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.heuzoo.dreport.controller.JournalController"
+        x="539" y="604">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.service.JournalService"
+            endpointName="journalservice" kind="Simple"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.service.JournalService"
+            endpointName="journalService" kind="Simple"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.service.WorkgroupService"
+            endpointName="workgroupService" kind="Simple"/>
+        <Communication destinationClassName="com.heuzoo.dreport.service.JournalService"/>
+        <Communication destinationClassName="com.heuzoo.dreport.service.WorkgroupService"/>
+    </Class>
+    <Class name="com.heuzoo.dreport.service.impl.WorkgroupServiceImpl"
+        x="874" y="614">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="com.heuzoo.dreport.service.WorkgroupService"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.mapper.WorkgroupMapper"
+            endpointName="workgroupMapper" kind="Simple"/>
+        <Communication destinationClassName="com.heuzoo.dreport.mapper.WorkgroupMapper"/>
+    </Class>
+    <Class name="com.heuzoo.dreport.mapper.JournalMapper" x="1348" y="-448">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.heuzoo.dreport.service.ProjectsService" x="80" y="982">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.heuzoo.dreport.controller.ProjectsController"
+        x="53" y="420">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.service.EmployeeService"
+            endpointName="employeeService" kind="Simple"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.service.JournalService"
+            endpointName="journalservice" kind="Simple"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.service.ProjectsService"
+            endpointName="projectservice" kind="Simple"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.service.ProjectsService"
+            endpointName="projectsService" kind="Simple"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.service.WorkgroupService"
+            endpointName="workgroupService" kind="Simple"/>
+        <Communication destinationClassName="com.heuzoo.dreport.service.EmployeeService"/>
+        <Communication destinationClassName="com.heuzoo.dreport.service.JournalService"/>
+        <Communication destinationClassName="com.heuzoo.dreport.service.ProjectsService"/>
+        <Communication destinationClassName="com.heuzoo.dreport.service.WorkgroupService"/>
+    </Class>
+    <Class name="com.heuzoo.dreport.service.MainFrameService" x="1232" y="810">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.heuzoo.dreport.service.impl.JournalServiceImpl"
+        x="504" y="-196">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="com.heuzoo.dreport.service.JournalService"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.mapper.JournalMapper"
+            endpointName="journalMapper" kind="Simple"/>
+        <Communication destinationClassName="com.heuzoo.dreport.mapper.JournalMapper"/>
+    </Class>
+    <Class name="com.heuzoo.dreport.mapper.NoticemessageMapper" x="2138" y="434">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class
+        name="com.heuzoo.dreport.service.impl.NoticemessageServiceImpl"
+        x="1620" y="448">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="com.heuzoo.dreport.service.NoticemessageService"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.mapper.EmployeeMapper"
+            endpointName="employeeMapper" kind="Simple"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.mapper.JournalMapper"
+            endpointName="journalMapper" kind="Simple"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.mapper.ProjectsMapper"
+            endpointName="projectsMapper" kind="Simple"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.mapper.NoticemessageMapper"
+            endpointName="noticemessageMapper" kind="Simple"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.mapper.WorkgroupMapper"
+            endpointName="workgroupMapper" kind="Simple"/>
+        <Communication destinationClassName="com.heuzoo.dreport.mapper.JournalMapper"/>
+        <Communication destinationClassName="com.heuzoo.dreport.mapper.EmployeeMapper"/>
+        <Communication destinationClassName="com.heuzoo.dreport.mapper.WorkgroupMapper"/>
+        <Communication destinationClassName="com.heuzoo.dreport.mapper.ProjectsMapper"/>
+        <Communication destinationClassName="com.heuzoo.dreport.mapper.NoticemessageMapper"/>
+    </Class>
+    <Class name="com.heuzoo.dreport.service.NoticemessageService"
+        x="1118" y="160">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.heuzoo.dreport.service.impl.EmployeeServiceImpl"
+        x="1440" y="1084">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="com.heuzoo.dreport.service.EmployeeService"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.mapper.EmployeeMapper"
+            endpointName="employeeMapper" kind="Simple"/>
+        <Communication destinationClassName="com.heuzoo.dreport.mapper.EmployeeMapper"/>
+    </Class>
+    <Class name="com.heuzoo.dreport.controller.NoticemessageController"
+        x="1123" y="-137">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.service.NoticemessageService"
+            endpointName="noticemessageService" kind="Simple"/>
+        <Communication destinationClassName="com.heuzoo.dreport.service.NoticemessageService"/>
+    </Class>
+    <Class name="com.heuzoo.dreport.service.EmployeeService" x="548" y="1020">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.heuzoo.dreport.service.impl.MainFrameServiceImpl"
+        x="1072" y="964">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="com.heuzoo.dreport.service.MainFrameService"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.mapper.MainFrameMapper"
+            endpointName="mainFrameMapper" kind="Simple"/>
+        <Communication destinationClassName="com.heuzoo.dreport.mapper.MainFrameMapper"/>
+    </Class>
+    <Class name="com.heuzoo.dreport.mapper.MainFrameMapper" x="1082" y="1052">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.heuzoo.dreport.mapper.WorkgroupMapper" x="1126" y="364">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.heuzoo.dreport.service.impl.ProjectsServiceImpl"
+        x="80" y="1214">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="com.heuzoo.dreport.service.ProjectsService"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.mapper.ProjectsMapper"
+            endpointName="projectsMapper" kind="Simple"/>
+        <Communication destinationClassName="com.heuzoo.dreport.mapper.ProjectsMapper"/>
+    </Class>
+    <Class name="com.heuzoo.dreport.mapper.ProjectsMapper" x="964" y="1238">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.heuzoo.dreport.controller.EmployeeController"
+        x="1137" y="550">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.service.EmployeeService"
+            endpointName="employeeService" kind="Simple"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.service.MainFrameService"
+            endpointName="mainFrameService" kind="Simple"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.service.JournalService"
+            endpointName="journalService" kind="Simple"/>
+        <Association
+            destinationClassName="com.heuzoo.dreport.service.WorkgroupService"
+            endpointName="workgroupService" kind="Simple"/>
+        <Communication destinationClassName="com.heuzoo.dreport.service.EmployeeService"/>
+        <Communication destinationClassName="com.heuzoo.dreport.service.JournalService"/>
+        <Communication destinationClassName="com.heuzoo.dreport.service.WorkgroupService"/>
+    </Class>
+    <Class name="com.heuzoo.dreport.service.WorkgroupService" x="630" y="884">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+</ClassDiagram>

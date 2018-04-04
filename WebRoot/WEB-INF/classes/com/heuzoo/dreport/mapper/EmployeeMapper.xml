@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heuzoo.dreport.mapper.EmployeeMapper" >
+  <select id="queryEmployeeByNumAndPwd" parameterType="com.heuzoo.dreport.pojo.EmployeeInfo" resultMap="LoginMap" >
+    select * from employee where emp_num=#{empNum} and emp_password=#{empPassword}
+  </select>
+  <!-- 直接通过工号查用户的sql语句 -->
+  <select id="getEmployeeByNum" parameterType="String" resultMap="LoginMap" >
+    select employee.* from employee where emp_num=#{empNum}
+  </select>
+  <!-- 直接通过Id查用户的sql语句 -->
+  <select id="getEmployeeById" parameterType="int" resultMap="LoginMap" >
+    select employee.* from employee where emp_id=#{empId}
+  </select>
+  <resultMap type="com.heuzoo.dreport.pojo.EmployeeInfo" id="LoginMap">
+  		<id column="emp_id" property="empId"/>
+  		<result column="emp_num" property="empNum" />
+  		<result column="emp_username" property="empUsername" />
+  		<result column="emp_password" property="empPassword" />
+  		<result column="emp_type" property="empType" />
+  		<result column="emp_lastlogin" property="empLastlogin" />
+  		<result column="emp_last_notice_time" property="empLastNoticeTime" />
+  		<result column="emp_hasnotice" property="empHasnotice" />
+  		<result column="emp_message" property="empMessage" />
+  		<result column="emp_workgroup_id" property="empWorkgroupId" />
+  		<result column="emp_enable" property="empEnable" />
+  </resultMap>
+  
+     <resultMap type="com.heuzoo.dreport.pojo.View_Employee" id="EmployeeInfo">
+  		<id column="emp_id" property="empId"/>
+  		<result column="emp_num" property="empNum" />
+  		<result column="emp_username" property="empUsername" />
+  		<result column="emp_password" property="empPassword" />
+  		<result column="emp_type" property="empType" />
+  		<result column="emp_lastlogin" property="empLastlogin" />
+  		<result column="emp_last_notice_time" property="empLastNoticeTime" />
+  		<result column="emp_hasnotice" property="empHasnotice" />
+  		<result column="emp_message" property="empMessage" />
+  		<result column="emp_workgroup_id" property="empWorkgroupId" />
+  		<result column="emp_enable" property="empEnable" />
+  		<result column="wg_id" property="wgId" />
+  		<result column="wg_leader_id" property="wgLeaderId" />
+  		<result column="wg_name" property="wgName" />
+  </resultMap>
+  <update id="updateEmployeeLastLoginTime" parameterType="com.heuzoo.dreport.pojo.EmployeeInfo">
+  	update employee set emp_lastlogin=#{empLastlogin,jdbcType=TIMESTAMP} where emp_num=#{empNum}
+  </update>
+  
+  <!-- 新加的更新表，根据emp_num来确定是哪个对象，然后更新他的其他字段 ，叶金幸2017年2月23日15:13:44-->
+  <update id="updateEmployeeInfo" parameterType="com.heuzoo.dreport.pojo.EmployeeInfo">
+  	update employee set emp_username=#{empUsername,jdbcType=VARCHAR} 
+  					, emp_password=#{empPassword,jdbcType=VARCHAR}
+  					, emp_last_notice_time=#{empLastNoticeTime,jdbcType=TIMESTAMP}
+  					, emp_hasnotice=#{empHasnotice,jdbcType=INTEGER}
+  					, emp_message=#{empMessage,jdbcType=VARCHAR}
+  					, emp_workgroup_id=#{empWorkgroupId,jdbcType=INTEGER}
+  					, emp_enable=#{empEnable,jdbcType=INTEGER}
+  	where emp_num=#{empNum}
+  </update>
+  <!-- Author高冬岩，用于向用户表中插入记录 -->
+  <insert id="insertEmployeeInfo" parameterType="com.heuzoo.dreport.pojo.EmployeeInfo">
+  	insert into employee(emp_id,emp_num,emp_username,emp_password,emp_type,emp_lastlogin, emp_hasnotice,emp_workgroup_id,emp_enable) values(seq_employee.nextval,#{empNum},#{empUsername},#{empPassword},#{empType},#{empLastlogin,jdbcType=TIMESTAMP},0,0,1)
+  	<selectKey keyProperty="empId" order="AFTER" resultType="int">
+			select seq_employee.currval from dual
+	</selectKey>
+  </insert>
+  
+  
+  <!-- 岳盈：查询用户信息 -->
+  	<select id="queryEmployeeInfoByName" resultMap="EmployeeInfo">
+		select e.*
+		from employee e 
+
+	</select>
+  <!-- Author刘敏， 查询未分配的员工 -->
+  <select id="queryEmployeeByGroup" resultMap="getEmployeeByGroup" >
+    select emp_id,emp_username from employee where emp_workgroup_id=0 and emp_type=1
+  </select>
+  <resultMap type="com.heuzoo.dreport.pojo.EmployeeInfo" id="getEmployeeByGroup">
+  		<id column="emp_id" property="empId"/>
+  		<result column="emp_username" property="empUsername" />
+  		<result column="emp_workgroup_id" property="empWorkgroupId" />
+  </resultMap>
+  <!-- Author刘敏， 查询未分配的组长 -->
+  <select id="queryEmployerByGroup" resultMap="getEmployerByGroup" >
+    select emp_id,emp_username from employee where emp_workgroup_id=0 and emp_type=2
+  </select>
+  <resultMap type="com.heuzoo.dreport.pojo.EmployeeInfo" id="getEmployerByGroup">
+  		<id column="emp_id" property="empId"/>
+  		<result column="emp_username" property="empUsername" />
+  		<result column="emp_workgroup_id" property="empWorkgroupId" />
+  </resultMap>
+  <!-- Author刘敏， 将员工状态由未分配改为已分配 -->
+  <update id="updateEmpolyeeWorkgroupId" parameterType="com.heuzoo.dreport.pojo.EmployeeInfo">
+  	update employee set emp_workgroup_id=#{empWorkgroupId} where emp_id=#{empId}
+  </update>
+  <update id="updateEmployeeInfoById" parameterType="com.heuzoo.dreport.pojo.EmployeeInfo">
+  	update employee set emp_username=#{empUsername,jdbcType=VARCHAR},emp_num=#{empNum}where emp_id=#{empId}
+  </update>
+</mapper>

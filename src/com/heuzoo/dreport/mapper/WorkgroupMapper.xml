@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heuzoo.dreport.mapper.WorkgroupMapper">
+
+	<resultMap type="com.heuzoo.dreport.pojo.WorkgroupInfo" id="WorkgroupInfo">
+		<result column="wg_id" property="wgId"/>
+		<result column="wg_leader_id" property="wgLeaderId"/>
+		<result column="wg_members" property="wgMembers"/>
+		<result column="wg_name" property="wgName"/>
+		<result column="wg_remarks" property="wgRemarks"/>
+		<result column="wg_enable" property="wgEnable"/>
+	</resultMap>
+
+	<select id="queryWgMembersById" parameterType="int" resultType="String">
+		select wg_members 
+		from workgroup 
+		where wg_id = #{value}
+	</select>
+	<!--取到所有workgroup  叶金幸2017年2月27日12:53:49 -->
+	<select id="getAllWorkgroups" resultMap="WorkgroupInfo">
+		select workgroup.*
+		from workgroup 
+	</select>
+  <!-- Author刘敏，添加工作组 -->
+  <insert id="insertWorkgroup" parameterType="com.heuzoo.dreport.pojo.WorkgroupInfo">
+  	insert into workgroup(wg_id, wg_leader_id, wg_members, wg_name, wg_remarks, wg_enable) values(seq_workgroup.nextval,#{wgLeaderId},#{wgMembers},#{wgName},#{wgRemarks},1)
+  	<selectKey keyProperty="wgId" order="AFTER" resultType="int">
+			select seq_workgroup.currval from dual
+	</selectKey>
+  </insert>
+</mapper>

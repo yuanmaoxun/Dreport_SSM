@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heuzoo.dreport.mapper.MainFrameMapper" >
+	<select id="getEmployeeCount" resultType="int">
+		select count(emp_id) from employee
+	</select>
+	<select id="getJournalCount" resultType="int">
+		select count(jour_id) from journal
+	</select>
+	<select id="getProjectCount" resultType="int">
+		select count(pro_id) from projects
+	</select>
+	<select id="getWorkgroupCount" resultType="int">
+		select count(wg_id) from workgroup
+	</select>
+</mapper>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heuzoo.dreport.mapper.ProjectsMapper">
+
+	<resultMap type="com.heuzoo.dreport.pojo.ProjectsInfo" id="ProjectsInfo">
+		<result column="pro_id" property="proId"/>
+		<result column="pro_name" property="proName"/>
+		<result column="pro_start_time" property="proStartTime"/>
+		<result column="pro_end_time" property="proEndTime"/>
+		<result column="pro_participate_wg" property="proParticipateWg"/>
+		<result column="pro_prp_stage" property="proPrpStage"/>
+		<result column="pro_enable" property="proEnable"/>
+	</resultMap>
+	
+	<select id="getProjectWorkgroupById" parameterType="int" resultType="int">
+		select pro_participate_wg 
+		from projects 
+		where pro_id = #{value}
+	</select>
+	
+	<select id="getProjectNameById" parameterType="int" resultType="String">
+		select pro_name
+		from projects 
+		where pro_id = #{value}
+	</select>
+	
+	
+	<select id="getWGIdById" parameterType="int" resultType="int">
+		select projects.pro_id
+		from projects 
+		where pro_participate_wg = #{value}
+	</select>
+	
+	<select id="getAllProjects" resultMap="ProjectsInfo">
+		select projects.*
+		from projects
+	</select>
+  <!-- Author刘敏，添加项目 -->
+  <insert id="insertProjectInfo" parameterType="com.heuzoo.dreport.pojo.ProjectsInfo">
+  	insert into projects(pro_id, pro_name, pro_start_time, pro_end_time, pro_participate_wg, pro_prp_stage, pro_enable) values(seq_projects.nextval, #{proName}, #{proStartTime}, #{proEndTime}, #{proParticipateWg}, #{proPrpStage}, 1)
+  	<selectKey keyProperty="proId" order="AFTER" resultType="int">
+			select seq_projects.nextval from dual
+	</selectKey>
+  </insert>
+    <!-- Author齐彤，查找项目 -->
+   <resultMap type="com.heuzoo.dreport.pojo.ProjectsInfo" id="projectmap">
+  		<id column="PRO_NAME" property="proName"/>
+
+  </resultMap>
+  
+  		  <select id="queryPro"  resultMap="projectmap">
+				select pro_name from projects
+ 		 </select>
+</mapper>

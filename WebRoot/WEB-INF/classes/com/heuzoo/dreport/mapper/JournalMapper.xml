@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heuzoo.dreport.mapper.JournalMapper">
+	<resultMap type="com.heuzoo.dreport.pojo.View_Journal" id="JournalWithNoState">
+		<id column="jour_id" property="jourId"/>
+		<result column="jour_submit_time" property="jourSubmitTime"/>
+		<result column="jour_submit_person" property="joursubmitPerson"/>
+		<result column="jour_project_id" property="jourProjectId"/>
+		<result column="jour_curr_stage" property="jourcurrStage"/>
+		<result column="jour_state" property="jourState"/>
+		<result column="jour_overtime_work" property="jourOvertimeWork"/>
+		<result column="jour_workload" property="jourWorkload"/>
+		<result column="jour_task" property="jourTask"/>
+		<result column="jour_enable" property="jourEnable"/>
+		<result column="emp_num" property="empNum"/>
+		<result column="emp_username" property="empUsername"/>
+		<result column="emp_type" property="empType"/>
+		<result column="pro_name" property="proName"/>
+		<result column="pro_id" property="proId"/>
+		<result column="pro_prp_stage" property="proPrpStage"/>
+	</resultMap>
+	<resultMap type="com.heuzoo.dreport.pojo.Journal_CheckSum" id="JournalWithName">
+		<id column="jour_id" property="jourId"/>
+		<result column="jour_submit_time" property="jourSubmitTime"/>
+		<result column="jour_submit_person" property="joursubmitPerson"/>
+		<result column="jour_project_id" property="jourProjectId"/>
+		<result column="jour_curr_stage" property="jourcurrStage"/>
+		<result column="jour_state" property="jourState"/>
+		<result column="jour_overtime_work" property="jourOvertimeWork"/>
+		<result column="jour_workload" property="jourWorkload"/>
+		<result column="jour_task" property="jourTask"/>
+		<result column="jour_enable" property="jourEnable"/>
+		<result column="emp_num" property="empNum"/>
+		<result column="emp_username" property="empUsername"/>
+		<result column="emp_type" property="empType"/>
+		<result column="pro_name" property="proName"/>
+		<result column="pro_id" property="proId"/>
+		<result column="jourWorkSumTime" property="jourWorkSumTime"/>
+		<result column="jourOverWorkSumTime" property="jourOverWorkSumTime"/>
+		
+	</resultMap>
+	<resultMap type="com.heuzoo.dreport.pojo.View_Journal" id="EmployeeAndProjects">
+		<result column="emp_num" property="empNum"/>
+		<result column="emp_username" property="empUsername"/>
+		<result column="emp_type" property="empType"/>
+		<result column="pro_name" property="proName"/>
+		<result column="pro_id" property="proId"/>
+		<result column="pro_prp_stage" property="proPrpStage"/>
+	</resultMap>
+	<select id="queryJournalInfoWithNoStateById" resultMap="JournalWithNoState">
+		select j.*, pro_name,emp_num,emp_username,pro_prp_stage
+		from journal j,projects p,employee e 
+		where j.jour_submit_person = emp_id and p.pro_id = j.jour_project_id 
+		and jour_state = 0 and jour_enable = 1 and jour_submit_person in 
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	<!-- 查所有日报对应的view_journal -->
+	<select id="getAllViewjournal" resultMap="JournalWithNoState">
+		select j.*, pro_name,emp_num,emp_username,pro_prp_stage
+		from journal j,projects p,employee e 
+		where j.jour_submit_person = emp_id and p.pro_id = j.jour_project_id 
+		and jour_state = 0 and jour_enable = 1
+	</select>
+	
+	<select id="queryJournalInfoWithNoStateType" resultMap="JournalWithNoState">
+		select j.*, pro_name,emp_num,emp_username,pro_prp_stage
+		from journal j,projects p,employee e 
+		where j.jour_submit_person = emp_id and p.pro_id = j.jour_project_id 
+		and jour_state = 0 and jour_enable = 1 and emp_type = 2
+	</select>
+	<!-- 根据日期查询全部日报 -->
+	<select id="queryIntradayJournals" parameterType="String" resultMap="JournalWithNoState">
+		select j.*, pro_name,emp_num,emp_username,pro_prp_stage
+		from journal j,projects p,employee e 
+		where j.jour_submit_person = emp_id and p.pro_id = j.jour_project_id 
+		and	jour_enable = 1 and to_char(jour_submit_time,'yyyymmdd')=#{Intraday}
+	</select>
+	
+	<select id="queryIntradayJournalsByProject" parameterType="com.heuzoo.dreport.pojo.Intradayproject" resultMap="JournalWithNoState">
+		select j.*, pro_name,emp_num,emp_username,pro_prp_stage
+		from journal j,projects p,employee e 
+		where j.jour_submit_person = emp_id and p.pro_id = j.jour_project_id 
+		and jour_enable = 1 and to_char(jour_submit_time,'yyyymmdd')=#{currDate} and jour_project_id=#{currProject}
+	</select>
+	
+	<update id="updateJournalStateIsAllowedsById" parameterType="int">
+		update journal set jour_state = 2 where jour_id = #{value}
+	</update>
+	<update id="updateJournalStateIsUnallowedById" parameterType="int">
+		update journal set jour_state = 1 where jour_id = #{value}
+	</update>
+	<!-- 根据员工姓名、工号、审核状态联级查询 -->
+	<!--  <select id="queryJournalWithEmpnameOrEmpnumOrJourstate" resultMap="JournalWithNoState">
+		select j.*, pro_name,emp_num,emp_username,pro_prp_stage
+		from journal j,projects p,employee e 
+		<where>
+			j.jour_submit_person = emp_id and p.pro_id = j.jour_project_id and jour_enable = 1
+			<if test="jourState!=null and jourState != ''">
+				and jour_state={jourState}
+			</if>
+			<if test="empNum!=null and empNum!=''">
+				and emp_num={empNum}
+			</if>
+			<if test="empUsername!=null and empUsername!=''">
+				and emp_username={empUsername}
+			</if>
+		</where>	
+	</select>-->
+	<!-- 齐彤 日报查询统计按人员查询 -->
+	<select id="queryJournalInfoByName"  resultMap="JournalWithName">
+		select e.emp_num,e.emp_username,p.pro_name,sum(j.jour_workload) as jourWorkSumTime,sum(j.jour_overtime_work) as jourOverWorkSumTime
+		from journal j,employee e,projects p
+		where j.jour_submit_person=e.emp_id and p.pro_id = j.jour_project_id 
+		group by e.emp_num,j.jour_submit_person,e.emp_username,p.pro_name
+  	</select>
+  	<!-- 袁茂洵 查询审核通过日报 -->
+  	<select id="queryJournalInfoWithStateAllowed" resultMap="JournalWithNoState">
+  		select j.*, pro_name,emp_num,emp_username,pro_prp_stage
+		from journal j,projects p,employee e 
+		where j.jour_submit_person = emp_id and p.pro_id = j.jour_project_id 
+		and jour_state = 2 and jour_enable = 1
+  	</select>
+  	<!-- 袁茂洵 查询审核未通过日报 -->
+  	<select id="queryJournalInfoWithStateUnalowed" resultMap="JournalWithNoState">
+  		select j.*, pro_name,emp_num,emp_username,pro_prp_stage
+		from journal j,projects p,employee e 
+		where j.jour_submit_person = emp_id and p.pro_id = j.jour_project_id 
+		and jour_state = 1 and jour_enable = 1
+  	</select>
+  	<select id="queryViewJournalInfoById" resultMap="EmployeeAndProjects">
+  		select pro_id,emp_num,emp_username,emp_type,pro_name,pro_prp_stage 
+		from employee,projects
+		where pro_participate_wg = emp_workgroup_id and emp_id = #{value}
+  	</select>
+  	<insert id="addJournalInfo" parameterType="com.heuzoo.dreport.pojo.JournalInfo">
+  		insert into Journal(jour_id,jour_submit_time,jour_submit_person,jour_project_id,jour_curr_stage,jour_state,jour_overtime_work,jour_workload,jour_task,jour_enable)
+  		values(seq_employee.nextval,#{jourSubmitTime,jdbcType=TIMESTAMP},#{joursubmitPerson},#{jourProjectId},#{jourcurrStage},#{jourState},#{jourOvertimeWork},#{jourWorkload},#{jourTask},#{jourEnable})
+  		<selectKey keyProperty="jourId" order="AFTER" resultType="int">
+			select seq_employee.currval from dual
+		</selectKey>
+  	</insert>
+  	<select id="queryJournalInfoIsMeAll" resultMap="JournalWithNoState">
+  		select j.*, pro_name,emp_num,emp_username,pro_prp_stage
+		from journal j,projects p,employee e 
+		where j.jour_submit_person = emp_id and p.pro_id = j.jour_project_id 
+		and jour_enable = 1 and jour_submit_person =#{value}
+  	</select><!--
+  	齐彤 根据项目名称查信息
+  	  --><select id="queryJournalInfoByPro" parameterType="String" resultMap="JournalWithName">
+select e.emp_num,e.emp_username,sum(j.jour_workload) as jourWorkSumTime,sum(j.jour_overtime_work) as jourOverWorkSumTime,
+sum(case when j.jour_state = 2 then 1 else 0 end) as accept,count(j.jour_state)as sumstate
+from journal j,employee e,projects p
+where j.jour_submit_person=e.emp_id and p.pro_id = j.jour_project_id and p.pro_name=#{value}
+group by e.emp_num,e.emp_username
+  
+  </select>
+</mapper>
